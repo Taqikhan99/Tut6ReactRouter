@@ -1,6 +1,40 @@
 import React from 'react'
-
+import Swal from 'sweetalert2';
 export default function Contact() {
+
+    const [name, setName] = React.useState('');
+    const [email, setEmail] = React.useState('');
+  
+    const [message, setMessage] = React.useState('');
+
+    //email functionality
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await fetch('https://formspree.io/f/{mykey}', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, email, message }),
+        });
+    
+        if (response.ok) {
+          alert('Form Submitted');
+          Swal.fire({
+            icon: 'success',
+            title: 'Thanks For Your Message',
+            text: 'Your Message has been successfully Sent!',
+          });
+        } else {
+          Swal.fire({
+      icon: 'error',
+      title: 'Submission Failed',
+      text: 'There was an error submitting your form. Please try again later.',
+    });
+        }
+      };
+
+
     return (
         <div className="relative flex items-top justify-center min-h-[700px] bg-white sm:items-center sm:pt-0">
         <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
@@ -38,31 +72,11 @@ export default function Contact() {
                                 />
                             </svg>
                             <div className="ml-4 text-md tracking-wide font-semibold w-40">
-                                Acme Inc, Street, State, Postal Code
+                                Karachi, Pakistan
                             </div>
                         </div>
 
-                        <div className="flex items-center mt-4 text-gray-600">
-                            <svg
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="1.5"
-                                viewBox="0 0 24 24"
-                                className="w-8 h-8 text-gray-500"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                                />
-                            </svg>
-                            <div className="ml-4 text-md tracking-wide font-semibold w-40">
-                                +44 1234567890
-                            </div>
-                        </div>
+                       
 
                         <div className="flex items-center mt-2 text-gray-600">
                             <svg
@@ -82,20 +96,35 @@ export default function Contact() {
                                 />
                             </svg>
                             <div className="ml-4 text-md tracking-wide font-semibold w-40">
-                                info@acme.org
+                                taqiahmed339@gmail.com
                             </div>
+
+                            
                         </div>
+
+                        <div className="flex items-center mt-2 text-gray-600">
+                        <svg
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                            className="w-8 h-8 text-gray-500"
+                        >
+                            <path d="M22.225 0H1.775C.791 0 0 .774 0 1.728v20.543C0 23.226.791 24 1.775 24h20.451C23.208 24 24 23.226 24 22.271V1.728C24 .774 23.208 0 22.225 0zM7.124 20.451H3.726V8.924h3.398v11.527zM5.424 7.351c-1.088 0-1.979-.884-1.979-1.972 0-1.089.891-1.973 1.979-1.973 1.088 0 1.979.884 1.979 1.973 0 1.088-.891 1.972-1.979 1.972zM20.451 20.451h-3.399v-5.604c0-1.337-.026-3.06-1.865-3.06-1.867 0-2.153 1.458-2.153 2.962v5.702h-3.399V8.924h3.263v1.571h.046c.453-.859 1.561-1.764 3.211-1.764 3.433 0 4.068 2.257 4.068 5.195v6.525z" />
+                        </svg>
+                        </div>
+
                     </div>
 
-                    <form className="p-6 flex flex-col justify-center">
+                    <form className="p-6 flex flex-col justify-center" onSubmit={handleSubmit}>
                         <div className="flex flex-col">
                             <label for="name" className="hidden">
                                 Full Name
                             </label>
                             <input
+                                required='true'
                                 type="name"
                                 name="name"
                                 id="name"
+                                onChange={(e)=>setName(e.target.value)}
                                 placeholder="Full Name"
                                 className="w-100 mt-2 py-3 px-3 rounded-lg bg-white border border-gray-400 text-gray-800 font-semibold focus:border-orange-500 focus:outline-none"
                             />
@@ -106,9 +135,11 @@ export default function Contact() {
                                 Email
                             </label>
                             <input
+                            required='true'
                                 type="email"
                                 name="email"
                                 id="email"
+                                onChange={(e)=>setEmail(e.target.value)}
                                 placeholder="Email"
                                 className="w-100 mt-2 py-3 px-3 rounded-lg bg-white border border-gray-400 text-gray-800 font-semibold focus:border-orange-500 focus:outline-none"
                             />
@@ -118,12 +149,15 @@ export default function Contact() {
                             <label for="tel" className="hidden">
                                 Number
                             </label>
-                            <input
-                                type="tel"
-                                name="tel"
-                                id="tel"
-                                placeholder="Telephone Number"
-                                className="w-100 mt-2 py-3 px-3 rounded-lg bg-white border border-gray-400 text-gray-800 font-semibold focus:border-orange-500 focus:outline-none"
+                            <textarea
+                            required='true'
+                            maxLength={250}
+                                type="text"
+                                name="message"
+                                id="message"
+                                onChange={(e)=>setMessage(e.target.value)}
+                                placeholder="your message"
+                                className="resize-none h-32 w-100 mt-2 py-3 px-3 rounded-lg bg-white border border-gray-400 text-gray-800 font-semibold focus:border-orange-500 focus:outline-none"
                             />
                         </div>
 

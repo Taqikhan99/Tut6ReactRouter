@@ -40,6 +40,21 @@ const router = createBrowserRouter([
 ])
 
 
+//we can also use alternate approach
+// Create routes using createRoutesFromElements
+// const router = createBrowserRouter(
+//   createRoutesFromElements(
+//     <Route path="/" element={<App />}>
+//       <Route index element={<Home />} />
+//       <Route path="about" element={<About />} />
+//       <Route path="contact" element={<Contact />} />
+//       <Route path="user/:userid" element={<User />} />
+//       <Route path="github" element={<GithubPage />} />
+//     </Route>
+//   )
+// );
+
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
 

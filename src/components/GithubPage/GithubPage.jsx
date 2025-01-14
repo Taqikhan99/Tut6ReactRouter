@@ -20,12 +20,12 @@ function GithubPage() {
     </div>
    
     <div className="container grid md:grid-cols-1 lg:grid-cols-3 gap-4  custom-container " >
-        <div className='col-span-1 p-2' >
-            <div className='rounded-full border border-gray-700  md: w-4/5 md: h-4/5'>
+        <div className='sm:col-span-1 md:col-span-1 border justify-center items-center  flex shadow-lg rounded-md' >
+            <div className='rounded-full border border-gray-700  md: w-4/5 md:h-4/5'>
                     <img src={data.avatar_url} alt="" className="rounded-full w-full h-full object-cover"/>
             </div>
         </div>
-        <div className= ' col-span-2  p-3 shadow-lg mt-2 border rounded-lg'>
+        <div className= ' sm:col-span-1 md:col-span-2  p-3 shadow-lg  border rounded-lg'>
             <h1 className='text-4xl text-black font-bold mb-2'> {data.name}</h1>
             <h1 className='text-2xl text-gray-600 font-semibold mb-5'> {data.login}</h1>
             <h1 className='text-lg text-gray-600 font-semibold mb-5'> {data.bio}</h1>
